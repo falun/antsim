@@ -74,6 +74,16 @@ public class OptionsUI extends JPanel
     return instance;
   }
 
+  public void setClass(String filePath) {
+      File f = new File(filePath);
+      if (!f.exists() || !f.isFile()) {
+          throw new IllegalArgumentException(filePath + " could not be found or is not a file.");
+      }
+
+      this.fileField.setText(f.getAbsolutePath());
+      this.actionListener.actionPerformed(new ActionEvent(this.startButton, 0, "kekeke"));
+  }
+
   private void initUI() {
     setLayout(new MigLayout("insets 10, gap 10"));
 

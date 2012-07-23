@@ -6,23 +6,32 @@ import javax.swing.JFrame;
 public class Ants extends JFrame
 {
   private static Ants instance = null;
+  private OptionsUI optionsUi = null;
 
   public static Ants get() {
+      return get(null);
+  }
+
+  public static Ants get(String file) {
     if (instance == null) {
-      instance = new Ants();
+      instance = new Ants(file);
     }
     return instance;
   }
 
-  public Ants() {
+  public Ants(String f) {
     super("Ants!");
 
     setDefaultCloseOperation(3);
-    setContentPane(OptionsUI.get());
+    optionsUi = OptionsUI.get();
+    setContentPane(optionsUi);
     pack();
     setResizable(false);
     setLocationRelativeTo(null);
     setVisible(true);
+    if (f != null) {
+        optionsUi.setClass(f);
+    }
   }
 
   public void setContentPane(Container contentPane)
@@ -35,7 +44,11 @@ public class Ants extends JFrame
   }
 
   public static void main(String[] args) throws Exception {
-    get();
+      String clazzPath = null;
+      if (args.length != 0) {
+          clazzPath = args[0];
+      }
+      get(clazzPath);
   }
 }
 
